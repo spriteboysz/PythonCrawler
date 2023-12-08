@@ -18,6 +18,7 @@ user_agent = (r'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, l
 
 
 def login(username, password):
+    csrftoken = ""
     url = 'https://leetcode.com'
     cookies = session.get(url).cookies
     for cookie in cookies:
@@ -41,7 +42,9 @@ def login(username, password):
 
     headers['Content-Type'] = m.content_type
     session.post(url, headers=headers, data=m, timeout=10, allow_redirects=False)
-    is_login = session.cookies.get('LEETCODE_SESSION') is not None
+    is_login = session.cookies.get('csrftoken') is not None
+    for cookie in cookies:
+        print(cookie)
     return is_login
 
 
@@ -161,8 +164,8 @@ def get_submission_by_id(submission_id):
 
 
 if __name__ == '__main__':
-    print(login('u', 'p'))
-    get_problems()
+    print(login('s', ''))
+    # get_problems()
     # get_problem_by_slug('two-sum')
     # get_submissions('two-sum')
     # get_submission_by_id('')
