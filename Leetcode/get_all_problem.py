@@ -11,6 +11,7 @@ import json
 import re
 import requests
 from requests_toolbelt import MultipartEncoder
+from config import username, password
 
 session = requests.Session()
 user_agent = (r'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/44.0.2403.157 '
@@ -164,7 +165,7 @@ def get_submission_by_id(submission_id):
 
 
 if __name__ == '__main__':
-    print(login('s', ''))
+    print(login(username, password))
     # get_problems()
     # get_problem_by_slug('two-sum')
     # get_submissions('two-sum')

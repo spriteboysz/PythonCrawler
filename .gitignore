@@ -4,6 +4,7 @@ __pycache__/
 *$py.class
 .idea
 .gitignore
+Leetcode/config.py
 
 # C extensions
 *.so
