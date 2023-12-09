@@ -20,13 +20,14 @@ user_agent = (r'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, l
 
 def login(username, password):
     csrftoken = ""
-    url = 'https://leetcode.com'
+    url = 'https://leetcode.cn'
     cookies = session.get(url).cookies
     for cookie in cookies:
         if cookie.name == 'csrftoken':
             csrftoken = cookie.value
+            print(csrftoken)
 
-    url = "https://leetcode.com/accounts/login"
+    url = "https://leetcode.cn/accounts/login"
     params_data = {
         'csrfmiddlewaretoken': csrftoken,
         'login': username,
@@ -36,8 +37,8 @@ def login(username, password):
     headers = {
         'User-Agent': user_agent,
         'Connection': 'keep-alive',
-        'Referer': 'https://leetcode.com/accounts/login/',
-        "origin": "https://leetcode.com"
+        'Referer': 'https://leetcode.cn/accounts/login/',
+        "origin": "https://leetcode.cn"
     }
     m = MultipartEncoder(params_data)
 
@@ -50,15 +51,16 @@ def login(username, password):
 
 
 def get_problems():
-    url = "https://leetcode.com/api/problems/all/"
+    url = "https://leetcode.cn/api/problems/all/"
     headers = {
         'User-Agent': user_agent,
         'Connection': 'keep-alive'
     }
     response = session.get(url, headers=headers, timeout=10)
     question_list = json.loads(response.content.decode('utf-8'))
+    print(question_list.keys())
     for question in question_list['stat_status_pairs']:
-        print(question)
+        # print(question)
         question_id = question['stat']['question_id']  # 题目编号
         question_slug = question['stat']['question__title_slug']  # 题目名称
         question_status = question['status']  # 题目状态
@@ -166,7 +168,7 @@ def get_submission_by_id(submission_id):
 
 if __name__ == '__main__':
     print(login(username, password))
-    # get_problems()
+    get_problems()
     # get_problem_by_slug('two-sum')
     # get_submissions('two-sum')
     # get_submission_by_id('')
