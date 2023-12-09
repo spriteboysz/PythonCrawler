@@ -45,8 +45,6 @@ def login(username, password):
     headers['Content-Type'] = m.content_type
     session.post(url, headers=headers, data=m, timeout=10, allow_redirects=False)
     is_login = session.cookies.get('csrftoken') is not None
-    for cookie in cookies:
-        print(cookie)
     return is_login
 
 
@@ -58,7 +56,6 @@ def get_problems():
     }
     response = session.get(url, headers=headers, timeout=10)
     question_list = json.loads(response.content.decode('utf-8'))
-    print(question_list.keys())
     for question in question_list['stat_status_pairs']:
         # print(question)
         question_id = question['stat']['question_id']  # 题目编号
